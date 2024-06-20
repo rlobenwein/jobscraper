@@ -6,9 +6,7 @@ type ScraperParams = {
     linkSelector: string;
     searchTerms: string[];
     fullContainerSelector:string,
-    companyName:string,
-    location:string
+    companyName?:string,
+    location?:string
   }
-
-
   
