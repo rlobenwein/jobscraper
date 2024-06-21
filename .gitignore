@@ -17,9 +17,10 @@ node_modules/
 # Production
 build/
 app.js
-indedd.js
+indeed.js
 nerdin.js
 scraper.js
+types.js
 
 # dotenv environment variables file
 .env
