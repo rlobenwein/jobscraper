@@ -6,7 +6,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {
-    "@types/cheerio": "^0.22.35",
     "@types/jquery": "^3.5.30",
     "@types/node": "^20.14.2",
     "typescript": "^5.4.5"
