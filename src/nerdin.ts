@@ -12,9 +12,9 @@ const nerdinParams: ScraperParams = {
     searchTerms: ['']
 };
 
-const nerdim = ()=>{
+const nerdim = (debug:boolean)=>{
 
-    scrapeJobListings(nerdinParams).then(jobListings => {
+    scrapeJobListings(nerdinParams,debug).then(jobListings => {
         console.log('Nerdin Job Listings:');
         jobListings.forEach((job: { title: any; description: any; jobLink: any; }) => {
             console.log(`Title: ${job.title}`);

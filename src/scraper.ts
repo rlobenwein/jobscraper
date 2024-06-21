@@ -3,6 +3,17 @@ const puppeteer = require('puppeteer');
 
 const scrapeJobListings = async (
     { url, containerSelector, titleSelector, descriptionSelector, linkSelector, searchTerms, fullContainerSelector }: ScraperParams, debug: boolean) => {
+    if (debug) {
+        console.log('scrapeJobListings params:');
+        console.log('url:', url);
+        console.log('titleSelector:', titleSelector);
+        console.log('descriptionSelector:', descriptionSelector);
+        console.log('linkSelector:', linkSelector);
+        console.log('searchTerms:', searchTerms);
+        console.log('fullContainerSelector:', fullContainerSelector);
+        console.log('containerSelector:', containerSelector);
+    }
+
     try {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
@@ -14,13 +25,21 @@ const scrapeJobListings = async (
             console.log(`Page loaded: ${url}`);
         }
 
-        const jobListings = await page.evaluate(({ containerSelector, titleSelector, descriptionSelector, linkSelector, searchTerms, fullContainerSelector }: ScraperParams) => {
+        const jobListings = await page.evaluate(({ containerSelector, titleSelector, descriptionSelector, linkSelector, searchTerms, fullContainerSelector }: ScraperParams,debug:boolean) => {
+            if (debug) {
+                console.log(`JobListings page evaluate`);
+            }
             const fullContainer = document.querySelector(fullContainerSelector);
             if (!fullContainer) {
                 if (debug) {
                     console.log(`Full container not found with selector: ${fullContainerSelector}`);
                 }
                 return [];
+            }else{
+                if (debug) {
+                    console.log(`Full container found with selector: ${fullContainerSelector}`);
+                    console.log(`Full container: ${fullContainer}`);
+                }
             }
             const jobContainers = fullContainer.querySelectorAll(containerSelector);
             if (debug) {
@@ -60,7 +79,7 @@ const scrapeJobListings = async (
 
             return jobs;
         }, { fullContainerSelector, containerSelector, titleSelector, descriptionSelector, linkSelector, searchTerms });
-        if(debug) {
+        if (debug) {
             console.log(`Job listings scraped: ${jobListings.length} jobs found`);
         }
         await browser.close();
